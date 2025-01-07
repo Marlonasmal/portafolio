@@ -1,0 +1,22 @@
+from ST7735 import TFT  # Import library of TFT screen
+from sysfont import sysfont
+from terminalfont import terminalfont
+from machine import SPI,Pin
+from time import sleep
+from random import randint, uniform  
+spi = SPI(2, baudrate=20000000, polarity=0, phase=0, sck=Pin(14), mosi=Pin(13), miso=Pin(12))
+tft=TFT(spi,16,17,18) # Configuration of comunication with the screen
+tft.initr()
+tft.rgb(True)
+tft.fill(TFT.BLACK)   # Fills the screen with black pixels
+Time = 0
+tft.text((0, 0), "Hello World!",TFT.WHITE, sysfont, 1,nowrap=True)
+while True:
+    tft.text((10, 30), f"sg.- {a}",TFT.WHITE, sysfont, 1,nowrap=True) # This function put the Initial text in the screen
+    Time += 1
+    sleep(0.5)
+    if Time == 11:
+        Time = 0
+        tft.fill(TFT.BLACK) # This one clear the screen and fill it with black pixels
+        break  
+tft.text((0, 60), "Complete!",TFT.WHITE, sysfont, 1,nowrap=True) # And for the end, This one put the new text in the screen.
